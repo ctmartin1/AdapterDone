@@ -3,6 +3,9 @@ package _todoInSection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
 import model.Student;
 
 /**
@@ -16,7 +19,7 @@ import model.Student;
 // (after adding implements TableModel to the class heading).
 //
 // Note: Some TableModel methods need not be implemented.
-public class StudentCollection  {
+public class StudentCollection  implements TableModel{
 
   private List<Student> theStudents;
 
@@ -61,5 +64,74 @@ public class StudentCollection  {
     }
     return null; // not found
   }
+
+@Override
+public void addTableModelListener(TableModelListener arg0) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public Class<?> getColumnClass(int index) {
+	switch(index){
+	case 0: return theStudents.get(0).getName().getClass();
+	case 1: return theStudents.get(0).getMajor().getClass();
+	case 2: return Double.class;
+	case 3: return Integer.class;
+	default: return null;
+	}
+}
+
+@Override
+public int getColumnCount() {
+	return 4;
+}
+
+@Override
+public String getColumnName(int index) {
+	switch(index){
+	case 0: return "Name"; 
+	case 1: return "Major"; 
+	case 2: return "GPA"; 
+	case 3: return "Age";
+	}
+	return "";
+}
+
+@Override
+public int getRowCount() {
+	return theStudents.size();
+}
+
+@Override
+public Object getValueAt(int row, int col) {
+	switch(col){
+	case 0: return theStudents.get(row).getName();
+	case 1: return theStudents.get(row).getMajor();
+	case 2: return theStudents.get(row).getGPA();
+	case 3: return theStudents.get(row).getAge();
+	}
+	return null;
+}
+
+@Override
+public boolean isCellEditable(int row, int col) {
+	/*if(col==2||col==3){
+		return true;
+	}*/
+	return false;
+}
+
+@Override
+public void removeTableModelListener(TableModelListener arg0) {
+	return;
+	
+}
+
+@Override
+public void setValueAt(Object arg0, int row, int col) {
+	return;
+	
+}
 
 }
